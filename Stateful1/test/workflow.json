@@ -2,53 +2,11 @@
     "definition": {
         "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
         "actions": {
-            "Send_an_email_(V2)": {
-                "type": "ApiConnection",
+            "Response": {
+                "type": "Response",
+                "kind": "http",
                 "inputs": {
-                    "host": {
-                        "connection": {
-                            "referenceName": "office365"
-                        }
-                    },
-                    "method": "post",
-                    "body": {
-                        "To": "shmv@microsoft.com",
-                        "Subject": "test",
-                        "Body": "<p>test</p>"
-                    },
-                    "path": "/v2/Mail"
-                },
-                "runAfter": {
-                    "Transform_XML": [
-                        "Succeeded"
-                    ]
-                }
-            },
-            "Transform_XML": {
-                "type": "Xslt",
-                "inputs": {
-                    "content": "<?xml version=\"1.0\"?>\n<?xml-stylesheet type=\"text/xsl\" href=\"example.xsl\"?>\n<Article>\n  <Title>My Article</Title>\n  <Authors>\n    <Author>Mr. Foo</Author>\n    <Author>Mr. Bar</Author>\n  </Authors>\n  <Body>This is my article text.</Body>\n</Article>",
-                    "map": {
-                        "name": "test.xsl"
-                    }
-                },
-                "runAfter": {
-                    "Send_Message": [
-                        "Succeeded"
-                    ]
-                }
-            },
-            "Send_Message": {
-                "type": "ServiceProvider",
-                "inputs": {
-                    "parameters": {
-                        "entityName": "testsbtrigger"
-                    },
-                    "serviceProviderConfiguration": {
-                        "connectionName": "serviceBus",
-                        "operationId": "sendMessage",
-                        "serviceProviderId": "/serviceProviders/serviceBus"
-                    }
+                    "statusCode": 200
                 },
                 "runAfter": {}
             }
