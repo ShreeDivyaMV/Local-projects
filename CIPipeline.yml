@@ -6,9 +6,6 @@ pr: none
 pool:
   vmImage: 'ubuntu-18.04'
 
-variables:
-- template: variables/pipeline-vars.yml
-
 jobs:
 - job: logic_app_build
   displayName: 'Build and publish logic app'
@@ -36,6 +33,6 @@ jobs:
     displayName: 'Publish project zip artifact'
     inputs:
       targetPath: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-      artifact: '$(logicAppCIArtifactName)'
+      artifact: 'logicapp_publish_artifact'
       publishLocation: 'pipeline'
 
